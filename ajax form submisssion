@@ -1,0 +1,36 @@
+var msg= '';
+     $('body').on('submit','.register-vender',function(e){
+      e.preventDefault()
+      //$("#signUpForm").validate()
+        var formData = new FormData(this)               
+        var res = insertData(base_url+"/register-vender","POST",formData)
+        if (res.status) {
+          showMsg(res.msg,'success')
+          $('#signUpForm').trigger("reset");
+          $('#staticBackdrop').modal('hide')
+        }else{
+          showMsg(res.msg,'danger')
+            $( this ).focus();
+        }
+    })
+    
+    <--------------demo--------------->
+    
+     function insertData(url, method, data) {
+        // alert('ok')
+        // console.log(data)
+        var dataToReturn = "";
+        $.ajax({
+            url: url,
+            method: method,
+            async: false,
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                var responseObj = $.parseJSON(response);
+                dataToReturn = responseObj;
+            }
+        });
+        return dataToReturn;
+    }
